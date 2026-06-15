@@ -1,0 +1,24 @@
+; Engine configuration file.
+; It's best edited using the Godot editor.
+; Manual changes may be overwritten by the editor on open.
+
+config_version=5
+
+[application]
+
+config/name="Demesne"
+config/features=PackedStringArray("4.3", "C#")
+run/main_scene="res://scenes/Main.tscn"
+
+[autoload]
+
+StateManager="*res://scripts/autoloads/StateManager.cs"
+ActionDispatcher="*res://scripts/autoloads/ActionDispatcher.cs"
+
+[demesne]
+
+server_url="http://localhost:5000"
+
+[dotnet]
+
+project/assembly_name="Demesne"

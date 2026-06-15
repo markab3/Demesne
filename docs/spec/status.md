@@ -6,9 +6,9 @@ Prerequisites before feature work can begin. Driven by `docs/design/` rather tha
 
 ### Infrastructure
 
-- [ ] ASP.NET Core WebAPI project scaffolded, runs locally (`dotnet run`)
-- [ ] Database schema initialized from `docs/design/data-model.md`
-- [ ] SignalR hub configured; client can connect and receive a server push
+- [x] ASP.NET Core WebAPI project scaffolded, runs locally (`dotnet run`)
+- [x] Database schema initialized from `docs/design/data-model.md`
+- [x] SignalR hub configured; client can connect and receive a server push
 - [ ] Godot 4 (C#) project scaffolded, runs in-editor against local API
 - [ ] `StateManager` autoload: holds display state, exposes `MergePartial`, emits domain-scoped signals
 - [ ] `ActionDispatcher` autoload: wraps all HTTP POST calls with typed methods

@@ -1,0 +1,19 @@
+# .NET
+bin/
+obj/
+*.user
+
+# Godot
+.godot/
+*.import
+export_presets.cfg
+
+# Secrets / local overrides
+appsettings.Local.json
+*.local.json
+
+# IDE
+.vs/
+.idea/
+*.suo
+*.sln.docstates
