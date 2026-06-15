@@ -1,5 +1,7 @@
 # Education
 
+**Status:** Draft
+
 Books feed directly into specialist development, closing the production loop.
 
 > Parchment + Ink → Books → Scriptorium → Literacy skill → Accounting / Alchemy / Tactics unlocks

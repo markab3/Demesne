@@ -1,5 +1,7 @@
 # Military
 
+**Status:** Draft
+
 ## Unit Upkeep
 
 Military units consume gold per tick. Units operating outside territory additionally consume authority upkeep per tick.

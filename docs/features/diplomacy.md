@@ -1,5 +1,7 @@
 # Diplomacy
 
+**Status:** Draft
+
 ## The Messenger System
 
 All diplomatic communication is a **messenger unit** that physically travels across the tile map. No messages can be sent or received during the frozen window — diplomacy requires presence during the activity window.

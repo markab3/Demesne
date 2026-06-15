@@ -1,5 +1,13 @@
 # Changelog
 
+## ADRs moved to docs/adr/; append-only enforcement added (2026-06-15)
+
+ADR files relocated from `docs/spec/decisions/` to `docs/adr/` to follow the industry-standard convention. A `README.md` in `docs/adr/` documents the append-only rules. CLAUDE.md updated with the ADR append-only instruction and the new directory map. A git pre-commit hook written to `.git/hooks/pre-commit` rejects commits that delete or modify non-status lines in ADR files. `docs/spec/decisions/` folder can be removed — contains only a redirect notice.
+
+Testability criteria added to all requirements in `requirements.md`. Three requirements flagged as non-testable as stated (REQ-004, REQ-206) or containing untestable sub-clauses (REQ-103, REQ-115). Status field (`**Status:** Draft`) added to all 18 feature files.
+
+---
+
 ## ADRs 005–006 added; name set; notes directory created (2026-06-14)
 
 ### Game name

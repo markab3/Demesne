@@ -1,5 +1,7 @@
 # Labor — Specialists
 
+**Status:** Draft
+
 ## Record Structure
 
 Each specialist is a named individual with:

@@ -1,5 +1,7 @@
 # Merchant System
 
+**Status:** Draft
+
 ## Merchants as Mobile Specialists
 
 Merchants are a specialist type with a personal inventory and a travel schedule. They are owned by a player but physically travel between cities and participate in the economy tick of whatever city they are currently in.

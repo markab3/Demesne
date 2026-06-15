@@ -1,5 +1,7 @@
 # Economy Tick
 
+**Status:** Draft
+
 Every game-day tick processes all pops in a city through six phases in order. One tick fires per real minute during the activity window.
 
 ## Phase 1 — Production

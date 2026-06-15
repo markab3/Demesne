@@ -1,5 +1,7 @@
 # Labor — Retainers
 
+**Status:** Draft
+
 Retainers are salaried direct employees who can be given explicit orders. They wait for orders and do nothing until assigned — unlike specialists who operate autonomously.
 
 ## Retainer Types

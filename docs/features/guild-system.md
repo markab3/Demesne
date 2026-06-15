@@ -1,5 +1,7 @@
 # Guild System
 
+**Status:** Draft
+
 The guild mediates between individual craftsmen and the lord. The player interacts with the **guild as a collective** for each trade rather than managing specialists individually.
 
 ## Guild Functions

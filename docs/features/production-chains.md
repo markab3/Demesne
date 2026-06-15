@@ -1,5 +1,7 @@
 # Production Chains
 
+**Status:** Draft
+
 Quality propagates up production chains. High-quality inputs worked by low-quality specialists produce mid-tier output. Every step in the chain contributes.
 
 ## Food & Drink

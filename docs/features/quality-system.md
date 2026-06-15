@@ -1,5 +1,7 @@
 # Quality System
 
+**Status:** Draft
+
 ## Craft Rating
 
 Each industry has an independent **Craft Rating** (continuous 1–100 scale) that determines the quality of finished goods produced.

@@ -1,5 +1,7 @@
 # Labor — Peasants
 
+**Status:** Draft
+
 Peasants are never tracked individually. They are a population count attached to a tile with a single collective happiness score.
 
 ## Peasant Pool

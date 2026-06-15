@@ -1,5 +1,7 @@
 # Manor System
 
+**Status:** Draft
+
 Each inhabited tile is administered through a **manor** held by a noble house. The lord does not manage peasants directly — nobles do.
 
 ## Noble Function

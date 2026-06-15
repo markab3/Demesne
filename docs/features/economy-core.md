@@ -1,5 +1,7 @@
 # Economy Core
 
+**Status:** Draft
+
 ## Prestige
 
 Prestige is a **continuous linear output metric** — a rate, not a tier system. The city produces X prestige per game-day.

@@ -1,5 +1,7 @@
 # Vassal System & Conflict
 
+**Status:** Draft
+
 ## Vassal System
 
 When a city is militarily overwhelmed, the attacker chooses: **raze or vassalize**.

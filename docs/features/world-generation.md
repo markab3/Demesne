@@ -1,5 +1,7 @@
 # World Generation
 
+**Status:** Draft
+
 The map is generated procedurally. See ADR-006 for the generation approach and `docs/notes/map-generation-research.md` for full technical research.
 
 ## Tile Shape

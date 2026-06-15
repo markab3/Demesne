@@ -1,5 +1,7 @@
 # Seasons & Time
 
+**Status:** Draft
+
 ## Time Scale
 
 | Unit | Real Time |

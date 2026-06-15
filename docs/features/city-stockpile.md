@@ -1,5 +1,7 @@
 # City Stockpile
 
+**Status:** Draft
+
 The city stockpile is the lord's personal inventory, distinct from the city market. Goods in the stockpile do not participate in market phases automatically.
 
 ## Sources

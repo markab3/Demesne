@@ -1,5 +1,7 @@
 # Resources
 
+**Status:** Draft
+
 ## Crops
 
 Each crop has preferred temperature (T), precipitation (P), and altitude (Alt) ranges. Planting outside preferred conditions reduces yield.
