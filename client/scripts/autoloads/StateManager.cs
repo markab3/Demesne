@@ -29,7 +29,7 @@ public partial class StateManager : Node
             EmitSignal(SignalName.TilesChanged, [changedTileKeys.ToArray()]);
     }
 
-    private void Merge(JsonObject target, JsonObject source, List<string> changedTileKeys)
+    private static void Merge(JsonObject target, JsonObject source, List<string> changedTileKeys)
     {
         foreach (var (key, sourceNode) in source)
         {

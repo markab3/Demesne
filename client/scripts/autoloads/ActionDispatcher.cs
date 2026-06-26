@@ -7,7 +7,7 @@ namespace Demesne.Client.Autoloads;
 
 public partial class ActionDispatcher : Node
 {
-    private readonly HttpClient _http = new();
+    private readonly System.Net.Http.HttpClient _http = new();
     private string _baseUrl = "http://localhost:5000";
 
     public override void _Ready()
