@@ -24,6 +24,81 @@ Prerequisites before feature work can begin. Driven by `docs/design/` rather tha
 
 ---
 
+## Milestones
+
+Milestones organize REQ implementation into deliverable slices. Each builds on the previous. Remaining Foundation items above are prerequisites for Milestone 1.
+
+### Milestone 1 — Walking Skeleton
+*Thin vertical slice through every layer. Nothing playable — proves the full stack works end-to-end.*
+
+- [ ] Single tile endpoint: GET returns terrain fields for one hardcoded tile (REQ-001 partial)
+- [ ] Godot client fetches and displays that tile's terrain fields as text
+- [ ] Tick fires once/minute and increments a game-day counter (REQ-090 partial)
+- [ ] SignalR pushes the day counter delta to all connected clients (REQ-205 partial)
+
+### Milestone 2 — First Production Loop
+*A peasant tile produces something visible each tick. First economic feedback.*
+
+- [ ] Peasant record on a tile: population count and happiness (REQ-020)
+- [ ] Phase 1 production calculates output for that tile (REQ-011 partial)
+- [ ] Phase 2 goods tax deducted to city stockpile (REQ-021, REQ-051 partial)
+- [ ] Client displays peasant output and stockpile contents, updating each tick
+
+### Milestone 3 — Player Identity & Multi-City
+*Multiple players can connect with separate city state. Auth and sync wired.*
+
+- [ ] Player auth complete: register, login, session token validated (Foundation item)
+- [ ] Full-state sync on login/reconnect (Foundation item)
+- [ ] Delta response shape enforced on all action responses (REQ-205)
+- [ ] Fog of war: full sync returns only tiles in visibility range (REQ-204)
+- [ ] Two independent cities can be created and viewed by separate players
+
+### Milestone 4 — Map Generation
+*Procedural map replaces the hardcoded test tile.*
+
+- [ ] Simplex noise generation: altitude, temperature, precipitation, arable % per tile (REQ-001)
+- [ ] Forest tiles with near-zero arable % (REQ-002 partial)
+- [ ] Mineral deposit quantities vary per tile (REQ-003)
+- [ ] Hex grid with axial coordinates queryable from client (ADR-005)
+
+### Milestone 5 — Full Economy Tick
+*All six phases running with real logic. First genuinely playable economic loop.*
+
+- [ ] All six tick phases executing in order with real logic (REQ-011)
+- [ ] Prestige as continuous output rate (REQ-013)
+- [ ] Authority income and deficit cascade (REQ-014)
+- [ ] Happiness drivers wired (REQ-015)
+- [ ] Crime pool mechanics (REQ-016)
+- [ ] Tile upkeep scaling formula (REQ-017)
+
+### Milestone 6 — Specialists
+- [ ] REQ-030 through REQ-037 (see Requirements table)
+
+### Milestone 7 — Retainers
+- [ ] REQ-040 through REQ-044 (see Requirements table)
+
+### Milestone 8 — Stockpile & Merchants
+- [ ] REQ-050 through REQ-054, REQ-080 through REQ-085 (see Requirements table)
+
+### Milestone 9 — Guilds & Education
+- [ ] REQ-060 through REQ-062, REQ-070 through REQ-072 (see Requirements table)
+
+### Milestone 10 — Seasons & Time
+- [ ] REQ-090 through REQ-094 (see Requirements table)
+
+### Milestone 11 — Military & Diplomacy
+- [ ] REQ-100 through REQ-104, REQ-110 through REQ-115 (see Requirements table)
+
+### Milestone 12 — Vassals & Manors
+- [ ] REQ-120 through REQ-122, REQ-130 through REQ-133 (see Requirements table)
+
+### Milestone 13 — Hardening
+*Non-functional requirements and security posture.*
+
+- [ ] REQ-200 through REQ-206 (see Requirements table)
+
+---
+
 ## Requirements
 
 | REQ | Description | Status |
