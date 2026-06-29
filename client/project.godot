@@ -12,6 +12,7 @@ run/main_scene="res://scenes/Main.tscn"
 
 [autoload]
 
+TokenStore="*res://scripts/autoloads/TokenStore.cs"
 StateManager="*res://scripts/autoloads/StateManager.cs"
 ActionDispatcher="*res://scripts/autoloads/ActionDispatcher.cs"
 
