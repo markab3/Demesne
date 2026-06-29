@@ -10,12 +10,14 @@ using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Database — fail fast on startup if not configured
-var connStr = builder.Configuration.GetConnectionString("DefaultConnection");
+// Database — fail fast on startup if not configured.
+// Prefer the ASP.NET Core connection string; fall back to DATABASE_URL (Railway, Render, etc.).
+var connStr = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? Environment.GetEnvironmentVariable("DATABASE_URL");
 if (string.IsNullOrWhiteSpace(connStr))
     throw new InvalidOperationException(
-        "DefaultConnection is not configured. Set ConnectionStrings:DefaultConnection " +
-        "via environment variable or appsettings.");
+        "No database connection string found. Set ConnectionStrings:DefaultConnection " +
+        "or DATABASE_URL via environment variable or appsettings.");
 var dataSource = NpgsqlDataSource.Create(connStr);
 builder.Services.AddSingleton(dataSource);
 
