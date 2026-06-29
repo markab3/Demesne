@@ -122,6 +122,7 @@ app.UseCors();
 app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapGet("/healthz", () => Results.Ok());
 app.MapControllers();
 app.MapHub<GameHub>("/hubs/game").RequireAuthorization();
 
