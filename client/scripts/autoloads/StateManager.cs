@@ -27,6 +27,8 @@ public partial class StateManager : Node
         Merge(_state, delta, changedTileKeys);
         if (changedTileKeys.Count > 0)
             EmitSignal(SignalName.TilesChanged, [changedTileKeys.ToArray()]);
+        if (delta.TryGetPropertyValue("tick", out var tickNode) && tickNode is not null)
+            EmitSignal(SignalName.TickAdvanced, tickNode.GetValue<int>());
     }
 
     private static void Merge(JsonObject target, JsonObject source, List<string> changedTileKeys)

@@ -31,10 +31,10 @@ Milestones organize REQ implementation into deliverable slices. Each builds on t
 ### Milestone 1 — Walking Skeleton
 *Thin vertical slice through every layer. Nothing playable — proves the full stack works end-to-end.*
 
-- [ ] Single tile endpoint: GET returns terrain fields for one hardcoded tile (REQ-001 partial)
-- [ ] Godot client fetches and displays that tile's terrain fields as text
-- [ ] Tick fires once/minute and increments a game-day counter (REQ-090 partial)
-- [ ] SignalR pushes the day counter delta to all connected clients (REQ-205 partial)
+- [x] Single tile endpoint: GET returns terrain fields for one hardcoded tile (REQ-001 partial)
+- [x] Godot client fetches and displays that tile's terrain fields as text
+- [x] Tick fires once/minute and increments a game-day counter (REQ-090 partial)
+- [x] SignalR pushes the day counter delta to all connected clients (REQ-205 partial)
 
 ### Milestone 2 — First Production Loop
 *A peasant tile produces something visible each tick. First economic feedback.*
