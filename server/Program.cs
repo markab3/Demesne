@@ -18,6 +18,22 @@ if (string.IsNullOrWhiteSpace(connStr))
     throw new InvalidOperationException(
         "No database connection string found. Set ConnectionStrings:DefaultConnection " +
         "or DATABASE_URL via environment variable or appsettings.");
+// Convert postgres:// URI to Npgsql key-value format if needed.
+if (connStr.StartsWith("postgres://") || connStr.StartsWith("postgresql://"))
+{
+    var uri = new Uri(connStr);
+    var userInfo = uri.UserInfo.Split(':');
+    connStr = new NpgsqlConnectionStringBuilder
+    {
+        Host = uri.Host,
+        Port = uri.Port > 0 ? uri.Port : 5432,
+        Database = uri.AbsolutePath.TrimStart('/'),
+        Username = Uri.UnescapeDataString(userInfo[0]),
+        Password = userInfo.Length > 1 ? Uri.UnescapeDataString(userInfo[1]) : null,
+        SslMode = SslMode.Require,
+        TrustServerCertificate = true,
+    }.ConnectionString;
+}
 var dataSource = NpgsqlDataSource.Create(connStr);
 builder.Services.AddSingleton(dataSource);
 
