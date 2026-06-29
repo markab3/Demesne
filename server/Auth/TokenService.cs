@@ -7,16 +7,25 @@ namespace Demesne.Server.Auth;
 
 public class TokenService
 {
-    private readonly IConfiguration _config;
+    private readonly SymmetricSecurityKey _key;
+    private readonly string _issuer;
+    private readonly string _audience;
 
-    public TokenService(IConfiguration config) => _config = config;
+    public TokenService(IConfiguration config)
+    {
+        var jwt = config.GetSection("Jwt");
+        var secret = jwt["Secret"]
+            ?? throw new InvalidOperationException("Jwt:Secret is not configured.");
+        _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+        _issuer = jwt["Issuer"]
+            ?? throw new InvalidOperationException("Jwt:Issuer is not configured.");
+        _audience = jwt["Audience"]
+            ?? throw new InvalidOperationException("Jwt:Audience is not configured.");
+    }
 
     public string GenerateToken(string playerId, string username)
     {
-        var jwtSection = _config.GetSection("Jwt");
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection["Secret"]!));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
+        var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, playerId),
@@ -25,8 +34,8 @@ public class TokenService
         };
 
         var token = new JwtSecurityToken(
-            issuer: jwtSection["Issuer"],
-            audience: jwtSection["Audience"],
+            issuer: _issuer,
+            audience: _audience,
             claims: claims,
             expires: DateTime.UtcNow.AddHours(24),
             signingCredentials: creds);

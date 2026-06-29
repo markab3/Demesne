@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Demesne.Server.Hubs;
 
+[Authorize]
 public class GameHub : Hub
 {
     public override async Task OnConnectedAsync()
