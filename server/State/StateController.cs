@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Demesne.Server.Tick;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
@@ -13,9 +14,9 @@ namespace Demesne.Server.State;
 public class StateController : ControllerBase
 {
     private readonly NpgsqlDataSource _db;
-    private readonly Tick.TickService _tick;
+    private readonly ITickState _tick; // D1: depend on interface, not the concrete BackgroundService
 
-    public StateController(NpgsqlDataSource db, Tick.TickService tick)
+    public StateController(NpgsqlDataSource db, ITickState tick)
     {
         _db = db;
         _tick = tick;
@@ -23,6 +24,7 @@ public class StateController : ControllerBase
 
     // Full state sync — called on login and reconnect (REQ-204: fog of war applied server-side).
     // Returns only the data the player is entitled to see.
+    // D4: IsInGame is explicit so the client never has to null-check city to know if it's in game.
     [HttpGet]
     public async Task<IActionResult> GetState()
     {
@@ -51,6 +53,10 @@ public class StateController : ControllerBase
                 reader.GetDouble(7));
         }
 
-        return Ok(new StateSnapshot(city, DateTimeOffset.UtcNow.ToUnixTimeSeconds(), _tick.GameTick));
+        return Ok(new StateSnapshot(
+            IsInGame: city is not null,
+            City: city,
+            ServerTimestamp: DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+            GameTick: _tick.GameTick));
     }
 }

@@ -5,11 +5,14 @@ namespace Demesne.Server.Tick;
 
 // Fires once per real minute. One tick = one game day (REQ-090).
 // Activity window enforcement is deferred; the skeleton fires unconditionally.
-public class TickService : BackgroundService
+public class TickService : BackgroundService, ITickState
 {
     private readonly IHubContext<GameHub> _hub;
     private readonly ILogger<TickService> _logger;
-    private int _gameTick = 0;
+
+    // volatile so plain reads in GameTick have a memory barrier on non-x86 architectures (B2).
+    // Writes always go through Interlocked.Increment which already implies a full barrier.
+    private volatile int _gameTick = 0;
 
     public int GameTick => _gameTick;
 
@@ -23,12 +26,26 @@ public class TickService : BackgroundService
     {
         using var timer = new PeriodicTimer(TimeSpan.FromMinutes(1));
         while (await timer.WaitForNextTickAsync(ct))
-            await ProcessTickAsync(ct);
+        {
+            // B4: catch all non-cancellation exceptions so a single bad tick does not
+            // permanently kill the background service for the lifetime of the process.
+            try
+            {
+                await ProcessTickAsync(ct);
+            }
+            catch (Exception ex) when (ex is not OperationCanceledException)
+            {
+                _logger.LogError(ex, "Tick {Tick} failed; skipping tick", _gameTick);
+            }
+        }
     }
 
     private async Task ProcessTickAsync(CancellationToken ct)
     {
-        _logger.LogInformation("Tick {Tick} starting", _gameTick + 1);
+        // B3: increment first so the captured tick number is used consistently
+        // across the log and the TickDelta push, with no racy read-before-increment.
+        var tick = Interlocked.Increment(ref _gameTick);
+        _logger.LogInformation("Tick {Tick} starting", tick);
 
         // Six phases in order (REQ-011). Bodies filled in by Milestone 5.
         await Phase1ProductionAsync(ct);
@@ -38,12 +55,11 @@ public class TickService : BackgroundService
         await Phase5RetainerRequisitionAsync(ct);
         await Phase6PurchasesAsync(ct);
 
-        var newTick = Interlocked.Increment(ref _gameTick);
-        _logger.LogInformation("Tick {Tick} complete", newTick);
+        _logger.LogInformation("Tick {Tick} complete", tick);
 
         await _hub.Clients.All.SendAsync(
             "TickDelta",
-            new { tick = newTick, serverTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() },
+            new { tick, serverTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() },
             ct);
     }
 
