@@ -1,0 +1,10 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "dotnet publish server/Demesne.Server.csproj -c Release -o out"
+
+[deploy]
+startCommand = "sh -c 'ASPNETCORE_HTTP_PORTS=$PORT dotnet out/Demesne.Server.dll'"
+healthcheckPath = "/healthz"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
