@@ -32,7 +32,6 @@ public partial class Main : Node
 
         BuildUi();
         GetNode<StateManager>("/root/StateManager").TickAdvanced += OnTickAdvanced;
-        _ = ConnectHubAsync();
     }
 
     private void BuildUi()
@@ -86,10 +85,12 @@ public partial class Main : Node
             var path = register ? "auth/register" : "auth/login";
             var resp = await _http.PostAsJsonAsync(path, new { username, password });
 
-            var body = await resp.Content.ReadFromJsonAsync<JsonObject>();
+            JsonObject? body = null;
+            try { body = await resp.Content.ReadFromJsonAsync<JsonObject>(); } catch { }
+
             if (!resp.IsSuccessStatusCode)
             {
-                SetLoginStatus(body?["error"]?.GetValue<string>() ?? "Request failed.");
+                SetLoginStatus(body?["error"]?.GetValue<string>() ?? $"Request failed ({(int)resp.StatusCode}).");
                 return;
             }
 

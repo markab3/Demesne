@@ -43,8 +43,7 @@ Owns the local display state as a `JsonObject`. Exposes `MergePartial(JsonObject
 TilesChanged(string[] tileKeys)   — passes only changed hex coords; enables targeted redraws
 ResourcesChanged()
 PopulationChanged()
-TurnAdvanced(int newTurn)
-ResearchChanged()
+TickAdvanced(int newTick)
 EventsChanged()
 ```
 

@@ -93,6 +93,40 @@ On the server, `new HttpClient()` per-class is an anti-pattern: each instance ho
 
 ---
 
+## 9. Tile fetch data flow — direct render vs. StateManager
+
+**Should `GET /tiles/{q}/{r}` feed through `StateManager.MergePartial`, or render directly to labels?**
+
+The current Milestone 1 implementation fetches tile data and writes it straight to a `Label` node, bypassing `StateManager`. The frontend architecture doc states that all state flows through `StateManager` (HTTP GET full sync → `MergePartial` → display state).
+
+When Milestone 4 introduces procedural generation and `TickDelta` deltas carry tile mutations, the two paths can conflict: a direct HTTP fetch response could overwrite a previously merged delta value, or the ordering between an initial fetch and an arriving delta could produce a stale display.
+
+**Decision needed:** Should `FetchTileAsync` pass the server response through `StateManager.MergePartial` (consistent with the stated architecture) rather than rendering directly? If so, display nodes should subscribe to `TilesChanged` rather than calling `SetTileText` imperatively.
+
+---
+
+## 10. Tile endpoint access model and fog-of-war
+
+**Will `GET /tiles/{q}/{r}` remain open to all authenticated players, or will it be scoped by visibility?**
+
+`TileController` is `[Authorize]` but returns the same tile to any authenticated player. When fog-of-war lands (REQ-204, targeted for Milestone 4/Milestone 3 enforcement), tile data outside a player's visibility range must not be returned. The current route shape `tiles/{q}/{r}` allows any authenticated player to probe any coordinate.
+
+**Decision needed:** Will tile queries be scoped to the requesting player's authority range (filtered server-side per player identity), or will a separate fog-of-war enforcement layer sit in front of the tile endpoint? This should be resolved before Milestone 4 populates real tile data.
+
+---
+
+## 11. `SignalR` reconnect and `?access_token=` URL log exposure
+
+**`WithAutomaticReconnect` multiplies access-token appearances in server access logs.**
+
+The `?access_token=<token>` exposure on WebSocket upgrade URLs is already documented (question 1, `Program.cs` comment). The Milestone 1 client uses `WithAutomaticReconnect`, which means every reconnect attempt (network blip, deploy restart) re-runs the WebSocket upgrade and emits a new log line with the token.
+
+The mitigation note in `Program.cs` ("scrub access logs") applies to all reconnect lines, not only the initial connection. No new vulnerability — same documented trade-off — but the log volume is higher than the comment implies.
+
+**Decision needed:** Is scrubbing access logs (or switching to short-lived hub tokens at Milestone 3) sufficient, or should reconnect frequency be throttled to limit exposure surface?
+
+---
+
 ## 8. `GameHub` authentication — open hub vs. authenticated hub
 
 **Should unauthenticated clients ever be allowed to connect to the hub?**
