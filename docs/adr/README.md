@@ -25,3 +25,4 @@ The **only** permitted in-place edit to an existing ADR is updating the `Status:
 | [004](004-delta-api-responses.md) | Typed Delta API Responses | Decided |
 | [005](005-hex-grid.md) | Hex Grid with Axial Coordinates | Decided |
 | [006](006-map-generation-approach.md) | Map Generation Approach | Decided — Option A |
+| [007](007-client-technology.md) | Client Technology: Blazor WebAssembly | Decided |
