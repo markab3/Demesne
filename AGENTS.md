@@ -41,13 +41,13 @@ When sources conflict, this is the order of authority:
 
 ## Workflow
 
-At the start of any session, check `docs/spec/status.md` to confirm the current milestone and what work is in scope.
+At the start of any session, check `docs/spec/status.md` (active work) and `docs/spec/status-completed.md` (archive) to confirm the current milestone and what work is in scope.
 
 Before implementing any feature, read the relevant `docs/features/` file and the REQ entries it satisfies in `docs/spec/requirements.md`.
 
 Before changing any existing feature, update the `docs/features/` file first. The spec is always ahead of or equal to the code.
 
-When completing a Foundation item or Milestone task, mark it done in `docs/spec/status.md`.
+When completing a Foundation item or Milestone task, mark it done in `docs/spec/status.md`, then move completed items to `docs/spec/status-completed.md` so the active file stays short.
 
 When making a significant architectural decision, create a new ADR in `docs/adr/`. See ADR Rules above.
 
@@ -66,7 +66,8 @@ docs/
 ├── spec/
 │   ├── overview.md          # Vision, goals, instance lifecycle
 │   ├── requirements.md      # Numbered requirements (REQ-xxx) with testability criteria
-│   └── status.md            # Foundation checklist, Milestones, REQ implementation status
+│   ├── status.md            # Active: Foundation deferred, Milestones, REQ implementation status
+│   └── status-completed.md  # Archive: completed Foundation/Infrastructure items
 ├── design/
 │   ├── architecture.md      # Stack, tick processor, security model, API transport split
 │   ├── data-model.md        # Entity definitions and field schemas
@@ -101,7 +102,7 @@ docs/
 
 | Task | Start here |
 |---|---|
-| Current milestone and work in scope | `docs/spec/status.md` |
+| Current milestone and work in scope | `docs/spec/status.md` (archive: `status-completed.md`) |
 | Understanding a game mechanic | `docs/features/<mechanic>.md` |
 | Understanding the tech shape | `docs/design/architecture.md` |
 | Understanding an entity's fields | `docs/design/data-model.md` |
