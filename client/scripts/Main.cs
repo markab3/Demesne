@@ -20,7 +20,15 @@ public partial class Main : Node
         var serverUrl = ProjectSettings.GetSetting("demesne/server_url", "http://localhost:5000").AsString();
 
         _hub = new HubConnectionBuilder()
-            .WithUrl($"{serverUrl}/hubs/game")
+            .WithUrl($"{serverUrl}/hubs/game", opts =>
+            {
+                // Hub requires JWT auth. The token is read from TokenStore once the player
+                // logs in (Milestone 3). Until then GetToken() returns null, the server
+                // rejects the upgrade with 401, and WithAutomaticReconnect retries —
+                // the hub will connect automatically once a token is stored.
+                opts.AccessTokenProvider = () =>
+                    Task.FromResult(GetNode<TokenStore>("/root/TokenStore").GetToken());
+            })
             .WithAutomaticReconnect()
             .Build();
 

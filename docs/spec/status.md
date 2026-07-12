@@ -9,13 +9,13 @@ Prerequisites before feature work can begin. Driven by `docs/design/` rather tha
 - [x] ASP.NET Core WebAPI project scaffolded, runs locally (`dotnet run`)
 - [x] Database schema initialized from `docs/design/data-model.md`
 - [x] SignalR hub configured; client can connect and receive a server push
-- [ ] Godot 4 (C#) project scaffolded, runs in-editor against local API
-- [ ] `StateManager` autoload: holds display state, exposes `MergePartial`, emits domain-scoped signals
-- [ ] `ActionDispatcher` autoload: wraps all HTTP POST calls with typed methods
-- [ ] Player auth: register, login, session token issued and validated on subsequent requests
-- [ ] Full-state sync on login/reconnect
-- [ ] Delta response shape: action responses return sparse changed-field objects (REQ-205)
-- [ ] Tick processor skeleton: fires once per real minute during activity window, six empty phase stubs in order
+- [x] Godot 4 (C#) project scaffolded, runs in-editor against local API
+- [x] `StateManager` autoload: holds display state, exposes `MergePartial`, emits domain-scoped signals
+- [x] `ActionDispatcher` autoload: wraps all HTTP POST calls with typed methods
+- [x] Player auth: register, login, session token issued and validated on subsequent requests
+- [x] Full-state sync on login/reconnect
+- [x] Delta response shape: action responses return sparse changed-field objects (REQ-205)
+- [x] Tick processor skeleton: fires once per real minute during activity window, six empty phase stubs in order
 
 ### Deferred — Hosting & Export
 
